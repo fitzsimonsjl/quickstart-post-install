@@ -74,7 +74,7 @@ sudo snap install darktable
 echo "...Finished"
 
 echo "Installing TablePlus Alpha"
-wget -O - -q http://deb.tableplus.com/apt.tableplus.com.gpg.key | sudo apt-key add - 
+wget -O - -q http://deb.tableplus.com/apt.tableplus.com.gpg.key | sudo apt-key add -
 sudo add-apt-repository "deb [arch=amd64] https://deb.tableplus.com/debian tableplus main"
 sudo apt update -y
 sudo apt install tableplus -y
@@ -126,8 +126,20 @@ echo "...Finished"
 
 echo "Installing GIMP"
 sudo add-apt-repository ppa:otto-kesselgulasch/gimp
-sudo apt-get update -y 
+sudo apt-get update -y
 sudo apt-get install -y gimp
+echo "...Finished"
+
+echo "Installing TLP"
+sudo apt-get update -y
+sudo apt-get install tlp -y
+sudo apt-get install acpi-call-dkms # Needed specifically for ThinkPad dual battery management & calibration, Maybe turn into if else statement...
+sudo tlp start
+echo "...Finished"
+
+echo "Installing htop"
+sudo apt update && sudo apt upgrade -y
+sudo apt install htop
 echo "...Finished"
 
 # Needed to correct GTK+ settings for Scrivener later
@@ -166,7 +178,7 @@ sudo apt install chrome-gnome-shell -y
 # 2. ???
 
 # TODO
-# Look into writing tests to make sure that everything installed correct
+# Look into writing tests to make sure that everything installed correctly
 
 # TODO
 # Maybe add GUI using curses or ncurses if feeling fancy...
