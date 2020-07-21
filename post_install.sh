@@ -242,6 +242,9 @@ sudo apt install chrome-gnome-shell -y
 # TODO
 # Maybe add GUI using curses or ncurses to allow for selection of applications to be installed
 
+# Installing Microsoft fonts for improved compatibility with MS Office documents and Libre Office
+sudo apt install -y ttf-mscorefonts-installer
+
 echo "Post install script complete"
 
 
