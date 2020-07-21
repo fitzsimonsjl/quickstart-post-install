@@ -46,12 +46,20 @@ sudo dpkg -i google-chrome-stable_current_amd64.deb
 echo "...Finished."
 
 echo "Installing Spotify"
-sudo snap install spotify
+curl -sS https://download.spotify.com/debian/pubkey.gpg | sudo apt-key add - 
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+sudo apt-get update && sudo apt-get install spotify-client
 echo "...Finished"
 
 echo "Installing Pocket Casts"
 sudo snap install pocket-casts
 echo "...Finished"
+
+echo "Installing Dropbox" # Need to figure this one out
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+
+echo "...Finished"
+
 
 echo "Installing Odio"
 sudo snap install odio
@@ -61,8 +69,19 @@ echo "Installing Visual Studio Code"
 sudo snap install code --classic
 echo "...Finished."
 
-echo "Installing Rambox"
-sudo snap install rambox
+echo "Installing Rambox" # Need to tidy up
+export VER="0.6.4"
+wget https://github.com/ramboxapp/community-edition/releases/download/$VER/Rambox-$VER-linux-amd64.deb
+sudo apt install  gconf-service gconf-service-backend gconf2 gconf2-common libappindicator1  libgconf-2-4 libindicator7
+sudo dpkg -i Rambox-$VER-linux-amd64.deb
+sudo apt -f install
+echo "...Finished"
+
+echo "Installing Etcher"
+echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | sudo tee/etc/apt/sources.list.d/etcher.list
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
+sudo apt-get update
+sudo apt-get install etcher-electron
 echo "...Finished"
 
 echo "Installing Anki"
@@ -84,10 +103,6 @@ echo "Installing Zeal Docs"
 sudo add-apt-repository ppa:zeal-developers/ppa
 sudo apt-get update -y
 sudo apt-get install zeal -y
-echo "...Finished"
-
-echo "Installing Postman"
-sudo snap install postman
 echo "...Finished"
 
 echo "Installing Byte Music Player"
@@ -120,20 +135,56 @@ echo "Installing Okular PDF Viewer"
 sudo snap install okular
 echo "...Finished"
 
-echo "Installing Slack"
-sudo snap install slack --classic
+echo "Installing GIMP"
+flatpak install flathub org.gimp.GIMP
 echo "...Finished"
 
-echo "Installing GIMP"
-sudo add-apt-repository ppa:otto-kesselgulasch/gimp
-sudo apt-get update -y
-sudo apt-get install -y gimp
+echo "Installing Steam"
+flatpak install flathub com.valvesoftware.Steam
 echo "...Finished"
+
+echo "Installing Krita"
+flatpak install flathub org.kde.krita
+echo "...Finished"
+
+echo "Installing Inkscape"
+flatpak install flathub org.inkscape.Inkscape
+echo "...Finished"
+
+echo "Installing Darktable"
+flatpak install flathub org.darktable.Darktable
+echo "...Finished"
+
+echo "Installing Byte Music Player"
+flatpak install flathub com.github.alainm23.byte
+echo "...Finished"
+
+echo "Installing Kdenlive Video Editor"
+flatpak install flathub org.kde.kdenlive
+echo "...Finished"
+
+echo "Installing Scribus"
+flatpak install flathub net.scribus.Scribus
+echo "...Finished"
+
+echo "Installing XMind 8"
+flatpak install flathub net.xmind.XMind8
+echo "...Finished"
+
+echo "Installing Postman"
+flatpak install flathub com.getpostman.Postman
+echo "...Finished"
+
+echo "Installing NordVPN"
+wget -qnc https://repo.nordvpn.com/deb/nordvpn/debian/pool/main/nordvpn-release_1.0.0_all.deb
+sudo dpkg -i /Home/jack/Hentet/nordvpn-release_1.0.0_all.deb
+sudo apt-get update
+sudo apt-get install nordvpn
 
 echo "Installing TLP"
 sudo apt-get update -y
 sudo apt-get install tlp -y
-sudo apt-get install acpi-call-dkms # Needed specifically for ThinkPad dual battery management & calibration, Maybe turn into if else statement...
+sudo apt-get install acpi-call-dkms # Needed specifically for ThinkPad 
 sudo tlp start
 echo "...Finished"
 
@@ -156,12 +207,20 @@ echo "...Finished"
 # 3. Create appropriate .desktop files and autofill necessary fields (e.g. StartUpWMClass, Icon directory, etc)
 
 echo "Installing Trello Desktop"
+wget https://github.com/Racle/trello-desktop/releases/download/v0.2.0/Trello-linux-0.2.0.zip -O trello.zip
+sudo mkdir /opt/trello
+sudo unzip trello.zip -d /opt/trello/
+sudo ln -sf /opt/trello/Trello /usr/bin/trello
+echo -e '[Desktop Entry]\n Version=1.0\n Name=Trello\n Exec=/usr/bin/trello\n Icon=/opt/trello/resources/app/static/Icon.png\n Type=Application\n Categories=Application' | sudo tee /usr/share/applications/trello.desktop
+sudo chmod +x /usr/share/applications/trello.desktop
+echo "...Finished"
 
 echo "Installing Todoist Desktop"
 
 echo "Installing Slack"
-
-echo "Installing Dropbox"
+https://downloads.slack-edge.com/linux_releases/slack-desktop-7.4.0-amd64.deb
+sudo apt install ./slack-desktop-*.deb
+echo "...Finished"
 
 echo "Installing Scrivener"
 
@@ -181,7 +240,7 @@ sudo apt install chrome-gnome-shell -y
 # Look into writing tests to make sure that everything installed correctly
 
 # TODO
-# Maybe add GUI using curses or ncurses if feeling fancy...
+# Maybe add GUI using curses or ncurses to allow for selection of applications to be installed
 
 echo "Post install script complete"
 
