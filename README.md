@@ -1,2 +1,16 @@
-# ubuntu-post-install
-A simple bash script for a (currently) mostly unattended install of applications once Le Wagon setup has been run. Still a few things to finish, but it's a start.
+# quickstart-post-install
+
+Trying to achieve some parity when switching between Linux, macOS, and Windows with some post-install scripts after initial OS setup/account creation.
+
+## Linux
+
+**Ubuntu**
+
+**Fedora**
+
+## macOS
+
+## Windows
+
+### List of installed applications
+
